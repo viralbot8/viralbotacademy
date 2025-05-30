@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ViralBotAcademy – Firebase App Check Demo</title>
+  <style>
+    body {
+      font-family: system-ui, Arial, sans-serif;
+      background: #111;
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    main {
+      max-width: 600px;
+      text-align: center;
+      padding: 2rem;
+      border: 1px solid #333;
+      border-radius: 12px;
+      background: #1a1a1a;
+      box-shadow: 0 0 20px #0005;
+    }
+    button {
+      padding: 0.7rem 1.4rem;
+      border-radius: 8px;
+      border: 0;
+      background: #4e7dff;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    button:hover {
+      background: #6d92ff;
+    }
+    code {
+      background: #222;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Firebase App Check (reCAPTCHA v3)</h1>
+    <p>If everything is configured correctly, clicking the button will fetch and display a valid <code>X-Firebase-AppCheck</code> token.</p>
+    <button id="getTokenBtn">Get App Check Token</button>
+    <pre id="output" style="white-space:pre-wrap;margin-top:1.5rem;"></pre>
+  </main>
+
+  <!-- Firebase v10 SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-check.js"></script>
+
+  <script>
+    // 1. Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA9tNn_lDhV4rs3aPZ93eSkJ_GSex6WkM4",
+      authDomain: "viralbotacademy-6d177.firebaseapp.com",
+      projectId: "viralbotacademy-6d177",
+      storageBucket: "viralbotacademy-6d177.firebasestorage.app",
+      messagingSenderId: "910741233252",
+      appId: "1:910741233252:web:506d249c72d4b25d288971"
+    };
+
+    // 2. Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // 3. Enable App Check using reCAPTCHA v3
+    const RECAPTCHA_SITE_KEY = "YOUR_RECAPTCHA_SITE_KEY"; // 🔁 Replace this
+    const appCheck = firebase.appCheck();
+    appCheck.activate(RECAPTCHA_SITE_KEY, true);
+
+    // 4. Token fetch demo
+    const btn = document.getElementById("getTokenBtn");
+    const out = document.getElementById("output");
+
+    btn.addEventListener("click", async () => {
+      try {
+        const token = await appCheck.getToken();
+        out.textContent = "App Check token (first 200 chars):\\n\\n" + token.token.slice(0, 200) + "...";
+      } catch (err) {
+        out.textContent = "⚠️ Error fetching token: " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
