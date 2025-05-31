@@ -2,70 +2,61 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lesson 1 – Course</title>
   <script src="/course/js/check-jwt.js" defer></script>
 
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: system-ui, sans-serif;
-      background-color: #0d0d0d;
-      color: white;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: sans-serif;
+      background: #000;
+      color: #fff;
     }
 
     .wrapper {
       display: flex;
-      flex-direction: row;
-      min-height: 100vh;
+      height: 100vh;
+      overflow: hidden;
     }
 
     .sidebar {
-      min-width: 200px;
+      width: 200px;
       background: #1a1a1a;
       padding: 20px;
-    }
-
-    .sidebar h2 {
-      font-size: 1.5em;
-      margin-bottom: 1em;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .sidebar a {
-      display: block;
       color: #c299ff;
       text-decoration: none;
-      margin-bottom: 10px;
       font-weight: bold;
     }
 
     .sidebar a.active {
-      color: #ffffff;
+      color: #fff;
     }
 
     .content {
       flex: 1;
-      padding: 20px;
       display: flex;
-      justify-content: center;
       align-items: center;
-      flex-direction: column;
+      justify-content: center;
     }
 
     iframe {
       width: 100%;
-      max-width: 960px;
-      aspect-ratio: 16 / 9;
+      height: 100%;
       border: none;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-      background: #000;
-    }
-
-    /* Hide checkbox and label (sidebar toggle, unused for now) */
-    #toggle-sidebar,
-    .toggle-label {
-      display: none;
     }
 
     @media (max-width: 768px) {
@@ -74,36 +65,28 @@
       }
 
       .sidebar {
+        flex-direction: row;
         width: 100%;
-      }
-
-      .content {
+        height: auto;
+        justify-content: center;
         padding: 10px;
       }
 
-      iframe {
-        width: 100%;
-        aspect-ratio: 9 / 16;
-        max-width: 100%;
+      .sidebar a {
+        margin: 0 10px;
       }
     }
   </style>
 </head>
-
 <body>
-  <input type="checkbox" id="toggle-sidebar" />
-  <label for="toggle-sidebar" class="toggle-label"><span></span><span></span><span></span></label>
-
   <div class="wrapper">
     <nav class="sidebar">
       <a href="/course/index.html" class="active">Lesson 1</a>
       <a href="/course/lesson-2.html">Lesson 2</a>
       <a href="/course/lesson-3.html">Lesson 3</a>
     </nav>
-
     <main class="content">
-      <!-- Carrd embed -->
-      <iframe src="https://ijwywu282wncaa272883882iushhshs.carrd.co/" loading="lazy"></iframe>
+      <iframe src="https://ijwywu282wncaa272883882iushhshs.carrd.co/"></iframe>
     </main>
   </div>
 </body>
