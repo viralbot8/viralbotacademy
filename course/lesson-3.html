@@ -8,28 +8,137 @@
   <script src="/course/js/check-jwt.js"></script>
 
   <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{display:flex;height:100vh;font-family:sans-serif;overflow:hidden}
-    .sidebar{width:240px;background:#2c3e50;color:#fff;display:flex;flex-direction:column;padding:20px}
-    .sidebar h2{margin-bottom:20px;font-size:20px}
-    .sidebar a{display:block;margin:8px 0;padding:6px;border-radius:4px;font-weight:700;text-decoration:none;color:#fff}
-    .sidebar a:hover{background:#34495e}
-    .sidebar a.active{background:#1abc9c}
-    .content{flex:1;background:#f5f5f5}
-    iframe{width:100%;height:100%;border:none}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: sans-serif; }
+
+    .wrapper {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      width: 240px;
+      background: #2c3e50;
+      color: white;
+      padding: 20px;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
+    .sidebar a {
+      display: block;
+      margin: 8px 0;
+      padding: 6px;
+      border-radius: 4px;
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+    }
+
+    .sidebar a:hover {
+      background: #34495e;
+    }
+
+    .sidebar a.active {
+      background: #1abc9c;
+    }
+
+    #toggle-sidebar {
+      display: none;
+    }
+
+    .toggle-label {
+      display: none;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 999;
+      cursor: pointer;
+    }
+
+    .toggle-label span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      margin: 5px;
+      background: #333;
+    }
+
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #f5f5f5;
+      overflow: auto;
+    }
+
+    iframe {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      border: none;
+      padding: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        position: fixed;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        transform: translateX(-100%);
+        z-index: 998;
+      }
+
+      #toggle-sidebar:checked ~ .wrapper .sidebar {
+        transform: translateX(0);
+      }
+
+      .toggle-label {
+        display: block;
+        background: white;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      }
+
+      iframe {
+        padding: 0;
+      }
+    }
   </style>
 </head>
 <body>
-  <nav class="sidebar">
-  <h2>📘 My Course</h2>
-  <a href="index.html" class="active">Lesson 1</a>
-  <a href="lesson-2.html">Lesson 2</a>
-  <a href="lesson-3.html">Lesson 3</a>
-</nav>
+  <!-- Sidebar toggle for mobile -->
+  <input type="checkbox" id="toggle-sidebar" />
+  <label for="toggle-sidebar" class="toggle-label">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
 
-  <main class="content">
-    <!-- TODO: replace the src below with your Lesson 3 Carrd URL -->
-    <iframe src="https://iqbveii29282vv367s8sbwuk1oiwow9r.carrd.co/"></iframe>
-  </main>
+  <div class="wrapper">
+    <nav class="sidebar">
+      <h2>📘 My Course</h2>
+      <a href="index.html">Lesson 1</a>
+      <a href="lesson-2.html">Lesson 2</a>
+      <a href="lesson-3.html" class="active">Lesson 3</a>
+    </nav>
+
+    <main class="content">
+      <!-- ✅ Update with your Lesson 3 Carrd link if it's different -->
+      <iframe src="https://iqbveii29282vv367s8sbwuk1oiwow9r.carrd.co/"></iframe>
+    </main>
+  </div>
 </body>
 </html>
