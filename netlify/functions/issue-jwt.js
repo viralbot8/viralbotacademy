@@ -3,24 +3,23 @@ const jwt = require("jsonwebtoken");
 exports.handler = async (event) => {
   const { email } = event.queryStringParameters;
 
-  console.log("Email received:", email);
-  console.log("Env secret:", process.env.JWT_SECRET);
-
-  if (!email || !process.env.JWT_SECRET) {
+  if (!email) {
     return {
-      statusCode: 401,
-      body: JSON.stringify({ error: "Missing email or secret." }),
+      statusCode: 400,
+      body: JSON.stringify({ error: "Missing email" }),
     };
   }
 
   const token = jwt.sign(
-    { email },
-    process.env.JWT_SECRET,
-    { expiresIn: "1h" }
+    { email, exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 }, // Expires in 24 hours
+    process.env.JWT_SECRET
   );
 
   return {
     statusCode: 200,
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({ token }),
   };
 };
