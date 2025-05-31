@@ -1,25 +1,25 @@
 const jwt = require("jsonwebtoken");
 
 exports.handler = async (event) => {
-  if (event.httpMethod !== "POST") {
+  const { token } = JSON.parse(event.body || "{}");
+
+  if (!token) {
     return {
-      statusCode: 405,
-      body: JSON.stringify({ valid: false, error: "Method Not Allowed" }),
+      statusCode: 400,
+      body: JSON.stringify({ valid: false, error: "Missing token" }),
     };
   }
 
   try {
-    const { token } = JSON.parse(event.body);
-
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     return {
       statusCode: 200,
-      body: JSON.stringify({ valid: true, decoded }),
+      body: JSON.stringify({ valid: true, email: decoded.email }),
     };
   } catch (err) {
     return {
       statusCode: 401,
-      body: JSON.stringify({ valid: false, error: err.message }),
+      body: JSON.stringify({ valid: false, error: "Invalid or expired token" }),
     };
   }
 };
