@@ -14,7 +14,8 @@
     }
 
     html, body {
-      height: 100%;
+      height: 200%;
+      width: 200%;
       font-family: sans-serif;
       background: #000;
       color: #fff;
@@ -22,18 +23,18 @@
 
     .wrapper {
       display: flex;
-      height: 100vh;
-      overflow: hidden;
+      height: 200%;
+      width: 200%;
     }
 
     .sidebar {
       width: 200px;
       background: #1a1a1a;
       padding: 20px;
-      flex-shrink: 0;
       display: flex;
       flex-direction: column;
       gap: 10px;
+      flex-shrink: 0;
     }
 
     .sidebar a {
@@ -48,15 +49,17 @@
 
     .content {
       flex: 1;
+      height: 200%;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      align-items: stretch;
+      justify-content: stretch;
     }
 
     iframe {
-      width: 100%;
-      height: 100%;
+      width: 200%;
+      height: 200%;
       border: none;
+      display: block;
     }
 
     @media (max-width: 768px) {
@@ -69,11 +72,14 @@
         width: 100%;
         height: auto;
         justify-content: center;
-        padding: 10px;
       }
 
       .sidebar a {
         margin: 0 10px;
+      }
+
+      .content {
+        height: calc(100vh - 60px); /* Adjust based on sidebar height */
       }
     }
   </style>
