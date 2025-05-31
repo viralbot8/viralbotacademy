@@ -1,55 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Secure Course Access</title>
-
-  <!-- Optional—locks the iframe so only your Carrd sub-domain can load -->
-  <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; frame-src https://ijwywu282wncaa272883882iushhshs.carrd.co;">
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 2rem;
-      background:#f9f9f9;
-    }
-    iframe {
-      width: 100%;
-      height: 90vh;
-      border: none;
-      margin-top: 1.5rem;
-    }
-  </style>
-</head>
-<body>
-  <h2>Verifying your access…</h2>
-
-  <script>
-    // Grab the token Gumroad appends to the redirect URL
-    const token = new URLSearchParams(window.location.search).get('token');
-
-    if (!token) {
-      document.body.innerHTML = '<h2>Access Denied – no token provided.</h2>';
-    } else {
-      fetch('/.netlify/functions/verify?token=' + encodeURIComponent(token))
-        .then(r => r.json())
-        .then(({ valid }) => {
-          if (valid) {
-            // ✅ Token is good – embed your Carrd course
-            document.body.innerHTML =
-              '<iframe src="https://ijwywu282wncaa272883882iushhshs.carrd.co"></iframe>';
-          } else {
-            document.body.innerHTML =
-              '<h2>Access Denied – token invalid or expired.</h2>';
-          }
-        })
-        .catch(() => {
-          document.body.innerHTML = '<h2>Error verifying token.</h2>';
-        });
-    }
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Viral Bot Academy</title>
+    <script src="/validate.js"></script>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe src="https://ijwywu282wncaa272883882iushhshs.carrd.co/" allowfullscreen></iframe>
+  </body>
 </html>
