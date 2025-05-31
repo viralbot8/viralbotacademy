@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Secure Course</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2rem; text-align: center; }
+    iframe { border: none; width: 100%; height: 90vh; }
+  </style>
+</head>
+<body>
+  <h2>Verifying Access...</h2>
+  <script>
+    const token = new URLSearchParams(window.location.search).get('token');
+    if (!token) {
+      document.body.innerHTML = "<h3>Access Denied: No token provided.</h3>";
+    } else {
+      fetch(`https://YOUR-NETLIFY-APP.netlify.app/.netlify/functions/verify?token=${token}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.valid) {
+            document.body.innerHTML = `<iframe src="https://YOUR-CARRD-COURSE.carrd.co"></iframe>`;
+          } else {
+            document.body.innerHTML = "<h3>Access Denied: Invalid or expired token.</h3>";
+          }
+        })
+        .catch(() => {
+          document.body.innerHTML = "<h3>Error verifying token.</h3>";
+        });
+    }
+  </script>
+</body>
+</html>
