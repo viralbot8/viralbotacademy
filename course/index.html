@@ -1,173 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HOW TO SCALE – Course</title>
-  <script src="/course/js/check-jwt.js" defer></script>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HOW TO SCALE – Course</title>
+  <script src="/course/js/check-jwt.js" defer></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    html, body {
-      height: 100%;
-      width: 100%;
-      font-family: sans-serif;
-      background: #000;
-      color: #fff;
-    }
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: sans-serif;
+      background: #000;
+      color: #fff;
+    }
 
-    .wrapper {
-      display: flex;
-      height: 100%;
-      width: 100%;
-    }
+    .wrapper {
+      display: flex;
+      height: 100%;
+      width: 100%;
+    }
 
-    .menu-toggle {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 1001;
-      background: rgba(26, 26, 26, 0.8);
-      color: #fff;
-      border: none;
-      padding: 6px 10px;
-      font-size: 18px;
-      cursor: pointer;
-      border-radius: 0 0 4px 0;
-      height: 40px;
-    }
+    .menu-toggle {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1001;
+      background: rgba(26, 26, 26, 0.8);
+      color: #fff;
+      border: none;
+      padding: 6px 10px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 0 0 4px 0;
+      height: 34px;
+      width: 50px;
+    }
 
-    .logout-button {
-      position: fixed;
-      top: 0;
-      right: 0;
-      z-index: 1001;
-      background: #e74c3c;
-      color: white;
-      border: none;
-      padding: 6px 10px;
-      font-size: 14px;
-      cursor: pointer;
-      border-radius: 0 0 0 4px;
-      height: 40px;
-    }
+    .logout-button {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 1001;
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 0 0 0 4px;
+      height: 34px;
+      width: 80px;
+    }
 
-    .support-button {
-      position: fixed;
-      top: 0;
-      left: 60px;
-      right: 80px;
-      z-index: 1000;
-      height: 40px;
-      background-color: #3498db;
-      color: white;
-      border: none;
-      font-size: 14px;
-      cursor: pointer;
-      border-radius: 0 0 0 0;
-      text-align: center;
-      line-height: 40px;
-      text-decoration: none;
-    }
+    .support-button {
+      position: fixed;
+      top: 0;
+      left: 50px;
+      right: 80px;
+      z-index: 1000;
+      height: 34px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      font-size: 14px;
+      cursor: pointer;
+      text-align: center;
+      line-height: 34px;
+      text-decoration: none;
+    }
 
-    .sidebar {
-      width: 200px;
-      background: rgba(26, 26, 26, 0.8);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      flex-shrink: 0;
-      transition: transform 0.3s ease;
-      height: auto;
-      max-height: 100vh;
-    }
+    .sidebar {
+      width: 200px;
+      background: rgba(26, 26, 26, 0.8);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+      height: auto;
+      max-height: 100vh;
+    }
 
-    .sidebar a {
-      color: #c299ff;
-      text-decoration: none;
-      font-weight: bold;
-    }
+    .sidebar a {
+      color: #c299ff;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-    .sidebar a.active {
-      color: #fff;
-    }
+    .sidebar a.active {
+      color: #fff;
+    }
 
-    .content {
-      flex: 1;
-      height: 100%;
-      position: relative;
-      overflow: hidden;
-    }
+    .content {
+      flex: 1;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
 
-    iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
 
-    @media (max-width: 768px) {
-      .menu-toggle {
-        display: block;
-      }
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
 
-      .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        transform: translateX(-100%);
-        z-index: 1000;
-        width: 70%;
-        max-width: 250px;
-        height: auto;
-      }
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translateX(-100%);
+        z-index: 1000;
+        width: 70%;
+        max-width: 250px;
+        height: auto;
+      }
 
-      .sidebar.open {
-        transform: translateX(0);
-      }
+      .sidebar.open {
+        transform: translateX(0);
+      }
 
-      .wrapper {
-        flex-direction: column;
-      }
+      .wrapper {
+        flex-direction: column;
+      }
 
-      .content {
-        height: 100vh;
-      }
-    }
-  </style>
+      .content {
+        height: 100vh;
+      }
+    }
+  </style>
 </head>
 <body>
-  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-  <a class="support-button" href="mailto:viralbot8@gmail.com">CLICK TO CONTACT SUPPORT</a>
-  <button class="logout-button" onclick="logout()">Logout</button>
+  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  <a class="support-button" href="mailto:viralbot8@gmail.com">CLICK TO CONTACT SUPPORT</a>
+  <button class="logout-button" onclick="logout()">Logout</button>
 
-  <div class="wrapper">
-    <nav class="sidebar" id="sidebar">
-      <a href="/course/index.html" class="active">HOW TO SCALE</a>
-      <a href="/course/lesson-2.html">WEEKLY UPDATES</a>
-      <a href="/course/lesson-3.html">AI CHATBOT</a>
-    </nav>
-    <main class="content">
-      <iframe src="https://ijwywu282wncaa272883882iushhshs.carrd.co/"></iframe>
-    </main>
-  </div>
+  <div class="wrapper">
+    <nav class="sidebar" id="sidebar">
+      <a href="/course/index.html" class="active">HOW TO SCALE</a>
+      <a href="/course/lesson-2.html">WEEKLY UPDATES</a>
+      <a href="/course/lesson-3.html">AI CHATBOT</a>
+    </nav>
+    <main class="content">
+      <iframe src="https://ijwywu282wncaa272883882iushhshs.carrd.co/"></iframe>
+    </main>
+  </div>
 
-  <script>
-    function toggleMenu() {
-      document.getElementById('sidebar').classList.toggle('open');
-    }
+  <script>
+    function toggleMenu() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
 
-    function logout() {
-      window.location.href = "https://viralbot.carrd.co/";
-    }
-  </script>
+    function logout() {
+      window.location.href = "https://viralbot.carrd.co/";
+    }
+  </script>
 </body>
 </html>
