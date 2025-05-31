@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 exports.handler = async (event) => {
-  const secret = "process.env.JWT SECRET;"; 
+  const secret = process.env.JWT_SECRET;
   const { email } = event.queryStringParameters;
 
   if (!email) {
