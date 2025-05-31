@@ -20,86 +20,68 @@
       color: #fff;
     }
 
-    .wrapper {
-      display: flex;
-      height: 100%;
-      width: 100%;
-    }
-
-    .menu-toggle {
-      display: none;
+    .menu-bar {
       position: fixed;
       top: 0;
       left: 0;
+      right: 0;
       z-index: 1001;
-      background: rgba(26, 26, 26, 0.8);
-      color: #fff;
+      background: rgba(26, 26, 26, 0.95);
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .menu-toggle {
+      background: none;
       border: none;
-      padding: 6px 10px;
-      font-size: 18px;
+      color: #fff;
+      font-size: 20px;
       cursor: pointer;
-      border-radius: 0 0 4px 0;
     }
 
     .logout-button {
-      position: fixed;
-      top: 0;
-      right: 0;
-      z-index: 1001;
       background: #e74c3c;
       color: white;
       border: none;
       padding: 6px 10px;
       font-size: 14px;
       cursor: pointer;
-      border-radius: 0 0 0 4px;
+      border-radius: 4px;
     }
 
-    .sidebar {
-      width: 200px;
-      background: rgba(26, 26, 26, 0.8);
-      padding: 20px;
-      display: flex;
+    .dropdown-menu {
+      position: fixed;
+      top: 50px;
+      left: 0;
+      right: 0;
+      background: rgba(26, 26, 26, 0.95);
+      display: none;
       flex-direction: column;
+      padding: 10px 20px;
       gap: 10px;
-      flex-shrink: 0;
-      transition: transform 0.3s ease;
-      height: auto;
-      max-height: 100vh;
-
-      /* Wavy edge using clip-path */
-      clip-path: polygon(
-        0 0,
-        85% 0,
-        100% 10%,
-        85% 20%,
-        100% 30%,
-        85% 40%,
-        100% 50%,
-        85% 60%,
-        100% 70%,
-        85% 80%,
-        100% 90%,
-        85% 100%,
-        0 100%
-      );
+      z-index: 1000;
     }
 
-    .sidebar a {
+    .dropdown-menu.show {
+      display: flex;
+    }
+
+    .dropdown-menu a {
       color: #c299ff;
       text-decoration: none;
       font-weight: bold;
     }
 
-    .sidebar a.active {
+    .dropdown-menu a.active {
       color: #fff;
     }
 
     .content {
-      flex: 1;
       height: 100%;
+      padding-top: 50px;
       position: relative;
-      overflow: hidden;
     }
 
     iframe {
@@ -107,65 +89,50 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
+      height: calc(100% - 50px);
       border: none;
       display: block;
     }
 
-    @media (max-width: 768px) {
-      .menu-toggle {
-        display: block;
-      }
-
-      .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        transform: translateX(-100%);
-        z-index: 1000;
-        width: 70%;
-        max-width: 250px;
-        height: auto;
-        clip-path: none; /* Disable wavy edge for mobile to prevent bugs */
-      }
-
-      .sidebar.open {
-        transform: translateX(0);
-      }
-
-      .wrapper {
-        flex-direction: column;
-      }
-
-      .content {
-        height: 100vh;
+    @media (min-width: 769px) {
+      .dropdown-menu {
+        top: 50px;
+        width: auto;
+        left: 10px;
+        right: auto;
+        background: rgba(26, 26, 26, 0.95);
+        border-radius: 0 0 8px 8px;
       }
     }
   </style>
 </head>
 <body>
-  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-  <button class="logout-button" onclick="logout()">Logout</button>
 
-  <div class="wrapper">
-    <nav class="sidebar" id="sidebar">
-      <a href="/course/index.html" class="active">HOW TO SCALE</a>
-      <a href="/course/lesson-2.html">WEEKLY UPDATES</a>
-      <a href="/course/lesson-3.html">AI CHATBOT</a>
-    </nav>
-    <main class="content">
-      <iframe src="https://ijwywu282wncaa272883882iushhshs.carrd.co/"></iframe>
-    </main>
+  <div class="menu-bar">
+    <button class="menu-toggle" onclick="toggleDropdown()">☰</button>
+    <button class="logout-button" onclick="logout()">Logout</button>
   </div>
 
+  <nav class="dropdown-menu" id="dropdownMenu">
+    <a href="/course/index.html" class="active">HOW TO SCALE</a>
+    <a href="/course/lesson-2.html">WEEKLY UPDATES</a>
+    <a href="/course/lesson-3.html">AI CHATBOT</a>
+  </nav>
+
+  <main class="content">
+    <iframe src="https://ijwywu282wncaa272883882iushhshs.carrd.co/"></iframe>
+  </main>
+
   <script>
-    function toggleMenu() {
-      document.getElementById('sidebar').classList.toggle('open');
+    function toggleDropdown() {
+      const menu = document.getElementById('dropdownMenu');
+      menu.classList.toggle('show');
     }
 
     function logout() {
       window.location.href = "https://viralbot.carrd.co/";
     }
   </script>
+
 </body>
 </html>
