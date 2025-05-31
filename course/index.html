@@ -64,8 +64,25 @@
       gap: 10px;
       flex-shrink: 0;
       transition: transform 0.3s ease;
-      height: auto; /* Sidebar only as tall as content */
+      height: auto;
       max-height: 100vh;
+
+      /* Wavy edge using clip-path */
+      clip-path: polygon(
+        0 0,
+        85% 0,
+        100% 10%,
+        85% 20%,
+        100% 30%,
+        85% 40%,
+        100% 50%,
+        85% 60%,
+        100% 70%,
+        85% 80%,
+        100% 90%,
+        85% 100%,
+        0 100%
+      );
     }
 
     .sidebar a {
@@ -108,7 +125,8 @@
         z-index: 1000;
         width: 70%;
         max-width: 250px;
-        height: auto; /* Shorter sidebar for mobile too */
+        height: auto;
+        clip-path: none; /* Disable wavy edge for mobile to prevent bugs */
       }
 
       .sidebar.open {
