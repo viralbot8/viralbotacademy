@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Redirecting...</title>
-    <meta charset="UTF-8" />
-    <script>
-      // Extract purchase_id from Gumroad
-      const params = new URLSearchParams(window.location.search);
-      const purchaseId = params.get("purchase_id");
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Authenticating...</title>
+  <script>
+    // Simulate generating a short-lived JWT token
+    function generateToken() {
+      const header = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" }));
+      const payload = btoa(JSON.stringify({
+        exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) // 24-hour token
+      }));
+      const signature = btoa("dummy-signature"); // simulate signature
+      return `${header}.${payload}.${signature}`;
+    }
 
-      if (purchaseId) {
-        // Store token with expiry (1 hour)
-        const expiry = Date.now() + 3600 * 1000;
-        const token = JSON.stringify({ id: purchaseId, expiry });
-        localStorage.setItem("access_token", token);
-
-        // Redirect to secured viewer
-        window.location.href = "/index.html";
-      } else {
-        document.write("Invalid redirect. No purchase ID found.");
-      }
-    </script>
-  </head>
-  <body></body>
+    const token = generateToken();
+    localStorage.setItem("access_token", token);
+    window.location.href = "/";
+  </script>
+</head>
+<body>
+  Redirecting...
+</body>
 </html>
