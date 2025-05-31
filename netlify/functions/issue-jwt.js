@@ -2,7 +2,8 @@
 const jwt = require("jsonwebtoken");
 
 exports.handler = async (event) => {
-  const secret = process.env.JWT_SECRET || "dev-secret";   // make sure you set JWT_SECRET in Netlify
+  const secret = "HD9!sL@8F3^29qP*zvWs76!k";
+   // make sure you set JWT_SECRET in Netlify
   const email  = event.queryStringParameters.email;
 
   if (!email) {
