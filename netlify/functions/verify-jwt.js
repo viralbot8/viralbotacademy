@@ -1,43 +1,23 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 exports.handler = async (event) => {
-  const email = event.queryStringParameters.email;
-  const secret = process.env.JWT_SECRET;
+  const secret = "HD9!sL@8F3^29qP*zvWs76!k
+"; // same as in issue-jwt.js
 
-  if (!email || !secret) {
+  const authHeader = event.headers.authorization || "";
+  const token = authHeader.replace("Bearer ", "");
+
+  try {
+    const decoded = jwt.verify(token, secret);
+
     return {
-      statusCode: 400,
-      body: 'Missing email or JWT secret',
+      statusCode: 200,
+      body: JSON.stringify({ valid: true, decoded })
+    };
+  } catch (err) {
+    return {
+      statusCode: 401,
+      body: JSON.stringify({ valid: false, error: "Invalid or expired token" })
     };
   }
-
-  const token = jwt.sign(
-    { email },
-    secret,
-    { expiresIn: '30d' }
-  );
-
-  const html = `
-    <html>
-      <body style="font-family: sans-serif; text-align: center; padding: 2em;">
-        <h2>✅ Access Granted</h2>
-        <p>We've generated your access token.</p>
-        <script>
-          localStorage.setItem('jwt', '${token}');
-          setTimeout(() => {
-            window.location.href = '/course/';
-          }, 1500);
-        </script>
-        <p>Redirecting to your course...</p>
-      </body>
-    </html>
-  `;
-
-  return {
-    statusCode: 200,
-    headers: {
-      'Content-Type': 'text/html'
-    },
-    body: html,
-  };
 };
