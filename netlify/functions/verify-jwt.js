@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 exports.handler = async (event) => {
-  const secret = "HD9!sL@8F3^29qP*zvWs76!k"; // ✅ cleaned secret – no newline
+  const secret = process.env.JWT_SECRET; // ✅ cleaned secret – no newline
 
   const authHeader = event.headers.authorization || "";
   const token = authHeader.replace("Bearer ", "");
