@@ -1,12 +1,7 @@
 {
-  "name": "viralbotacademy",
+  "name": "viralbotacademy-course-site",
   "version": "1.0.0",
-  "description": "JWT-protected Gumroad course site",
-  "main": "index.js",
-  "scripts": {
-    "start": "netlify dev"
-  },
   "dependencies": {
-    "jsonwebtoken": "^9.0.0"
+    "jsonwebtoken": "^9.0.2"
   }
 }
