@@ -1,22 +1,36 @@
 const jwt = require("jsonwebtoken");
 
 exports.handler = async (event) => {
-  const secret = "HD9!sL@8F3^29qP*zvWs76!k
-"; // 🔒 Change this to your real secret
-  const expiresIn = "7d"; // Token lasts 7 days
+  const secret = "your-secret-key"; // REPLACE with a secure key!
+  const { email } = event.queryStringParameters;
 
-  const payload = {
-    access: "granted",
-    timestamp: Date.now()
-  };
+  if (!email) {
+    return {
+      statusCode: 400,
+      body: "Missing email",
+    };
+  }
 
-  const token = jwt.sign(payload, secret, { expiresIn });
+  // Generate a token that expires in 30 days
+  const token = jwt.sign({ email }, secret, { expiresIn: "30d" });
+
+  const html = `
+    <html>
+      <head>
+        <script>
+          localStorage.setItem("token", "${token}");
+          window.location.href = "/course/index.html";
+        </script>
+      </head>
+      <body>
+        Redirecting...
+      </body>
+    </html>
+  `;
 
   return {
     statusCode: 200,
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ token })
+    headers: { "Content-Type": "text/html" },
+    body: html,
   };
 };
