@@ -64,6 +64,8 @@
       gap: 10px;
       flex-shrink: 0;
       transition: transform 0.3s ease;
+      height: auto; /* Sidebar only as tall as content */
+      max-height: 100vh;
     }
 
     .sidebar a {
@@ -102,11 +104,11 @@
         position: fixed;
         top: 0;
         left: 0;
-        height: 100%;
         transform: translateX(-100%);
         z-index: 1000;
         width: 70%;
         max-width: 250px;
+        height: auto; /* Shorter sidebar for mobile too */
       }
 
       .sidebar.open {
@@ -144,7 +146,6 @@
     }
 
     function logout() {
-      // Redirect to your Carrd landing page
       window.location.href = "https://viralbot.carrd.co/";
     }
   </script>
