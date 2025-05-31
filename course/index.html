@@ -7,109 +7,123 @@
   <script src="/course/js/check-jwt.js" defer></script>
 
   <style>
-    /* ---------- base reset ---------- */
-    *{box-sizing:border-box;margin:0;padding:0;}
-
-    html,body{
-      height:100%;
-      width:100%;
-      font-family:sans-serif;
-      background:#000;
-      color:#fff;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    /* ---------- layout ---------- */
-    .wrapper{
-      display:flex;
-      height:100%;
-      width:100%;
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: sans-serif;
+      background: #000;
+      color: #fff;
     }
 
-    .sidebar{
-      width:200px;
-      background:#1a1a1a;
-      padding:20px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      flex-shrink:0;
+    .wrapper {
+      display: flex;
+      height: 100%;
+      width: 100%;
     }
 
-    .sidebar a{
-      color:#c299ff;
-      text-decoration:none;
-      font-weight:bold;
-    }
-    .sidebar a.active{color:#fff;}
-
-    .content{
-      flex:1;
-      height:100%;
-      overflow:hidden;
+    .sidebar {
+      width: 200px;
+      background: #1a1a1a;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
     }
 
-    /* ---------- iframe zoom hack ---------- */
-    .iframe-container{
-      width:100%;
-      height:100%;
-      transform-origin:top left;
-      overflow:hidden;
-    }
-    iframe{
-      width:100%;
-      height:100%;
-      border:none;
-      display:block;
+    .sidebar a {
+      color: #c299ff;
+      text-decoration: none;
+      font-weight: bold;
     }
 
-    /* ---------- responsive zoom values ---------- */
-    /* phones – no zoom */
-    .iframe-container{transform:scale(1);}
-
-    /* small tablets */
-    @media (min-width:768px){
-      .iframe-container{transform:scale(1.2);}
+    .sidebar a.active {
+      color: #fff;
     }
 
-    /* large tablets / small laptop */
-    @media (min-width:992px){
-      .iframe-container{transform:scale(1.35);}
+    .content {
+      flex: 1;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
     }
 
-    /* typical desktop */
-    @media (min-width:1200px){
-      .iframe-container{transform:scale(1.5);}
+    .iframe-container {
+      width: 100%;
+      height: 100%;
+      transform-origin: top left;
+      overflow: hidden;
     }
 
-    /* very wide desktop */
-    @media (min-width:1400px){
-      .iframe-container{transform:scale(1.75);}
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
     }
 
-    /* ---------- mobile sidebar layout ---------- */
-    @media (max-width:768px){
-      .wrapper{flex-direction:column;}
+    /* Responsive scaling */
+    .iframe-container { transform: scale(1); }
+    @media (min-width: 768px) { .iframe-container { transform: scale(1.2); } }
+    @media (min-width: 992px) { .iframe-container { transform: scale(1.35); } }
+    @media (min-width: 1200px) { .iframe-container { transform: scale(1.5); } }
+    @media (min-width: 1400px) { .iframe-container { transform: scale(1.75); } }
 
-      .sidebar{
-        flex-direction:row;
-        width:100%;
-        height:auto;
-        justify-content:center;
-        padding:10px;
+    /* Mobile-specific sidebar handling */
+    @media (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
       }
-      .sidebar a{margin:0 10px;}
 
-      /* reserve space for the sidebar row */
-      .content{height:calc(100vh - 60px);}
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 200px;
+        transform: translateX(-100%);
+        z-index: 1000;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .menu-toggle {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: #1a1a1a;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 1100;
+      }
+
+      .content {
+        height: 100vh;
+      }
     }
   </style>
 </head>
 <body>
   <div class="wrapper">
-    <nav class="sidebar">
-      <a href="/course/index.html" class="active">Lesson&nbsp;1</a>
-      <a href="/course/lesson-2.html">Lesson&nbsp;2</a>
-      <a href="/course/lesson-3.html">Lesson&nbsp;3</a>
+    <!-- Mobile Menu Button -->
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <nav class="sidebar" id="sidebar">
+      <a href="/course/index.html" class="active">Lesson 1</a>
+      <a href="/course/lesson-2.html">Lesson 2</a>
+      <a href="/course/lesson-3.html">Lesson 3</a>
     </nav>
 
     <main class="content">
@@ -118,5 +132,12 @@
       </div>
     </main>
   </div>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('open');
+    }
+  </script>
 </body>
 </html>
