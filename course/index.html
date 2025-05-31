@@ -41,6 +41,20 @@
       border-radius: 0 0 4px 0;
     }
 
+    .logout-button {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 1001;
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 0 0 0 4px;
+    }
+
     .sidebar {
       width: 200px;
       background: rgba(26, 26, 26, 0.8);
@@ -111,6 +125,7 @@
 </head>
 <body>
   <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  <button class="logout-button" onclick="logout()">Logout</button>
 
   <div class="wrapper">
     <nav class="sidebar" id="sidebar">
@@ -126,6 +141,12 @@
   <script>
     function toggleMenu() {
       document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    function logout() {
+      // Replace with actual logout logic
+      alert("Logging out...");
+      // Example: localStorage.removeItem("jwt"); location.href = "/login";
     }
   </script>
 </body>
