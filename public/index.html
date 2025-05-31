@@ -30,7 +30,7 @@
     if (!token) {
       document.body.innerHTML = "<h2>Access Denied: No token provided.</h2>";
     } else {
-      fetch(`https://YOUR-NETLIFY-APP.netlify.app/.netlify/functions/verify?token=${token}`)
+      fetch(`https://viralbotacademy.netlify.app/.netlify/functions/verify?token=${token}`)
         .then(res => res.json())
         .then(data => {
           if (data.valid) {
