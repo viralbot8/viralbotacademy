@@ -12,23 +12,24 @@
       font-family: system-ui, sans-serif;
       background-color: #0d0d0d;
       color: white;
+      overflow: hidden;
     }
 
     .wrapper {
       display: flex;
       flex-direction: row;
-      min-height: 100vh;
+      height: 100vh;
+      width: 100vw;
     }
 
     .sidebar {
-      min-width: 200px;
+      width: 200px;
       background: #1a1a1a;
       padding: 20px;
-    }
-
-    .sidebar h2 {
-      font-size: 1.5em;
-      margin-bottom: 1em;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      overflow-y: auto;
     }
 
     .sidebar a {
@@ -45,27 +46,16 @@
 
     .content {
       flex: 1;
-      padding: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
+      overflow: hidden;
     }
 
     iframe {
       width: 100%;
-      max-width: 960px;
-      aspect-ratio: 16 / 9;
+      height: 100%;
       border: none;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-      background: #000;
-    }
-
-    /* Hide checkbox and label (sidebar toggle, unused for now) */
-    #toggle-sidebar,
-    .toggle-label {
-      display: none;
     }
 
     @media (max-width: 768px) {
@@ -75,25 +65,24 @@
 
       .sidebar {
         width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-around;
       }
 
       .content {
-        padding: 10px;
+        flex: 1;
       }
 
       iframe {
-        width: 100%;
-        aspect-ratio: 9 / 16;
-        max-width: 100%;
+        width: 100vw;
+        height: 100vh;
       }
     }
   </style>
 </head>
 
 <body>
-  <input type="checkbox" id="toggle-sidebar" />
-  <label for="toggle-sidebar" class="toggle-label"><span></span><span></span><span></span></label>
-
   <div class="wrapper">
     <nav class="sidebar">
       <a href="/course/index.html" class="active">Lesson 1</a>
@@ -102,7 +91,6 @@
     </nav>
 
     <main class="content">
-      <!-- Carrd embed -->
       <iframe src="https://ijwywu282wncaa272883882iushhshs.carrd.co/" loading="lazy"></iframe>
     </main>
   </div>
