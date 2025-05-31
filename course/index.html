@@ -7,17 +7,17 @@
   <script src="/course/js/check-jwt.js" defer></script>
 
   <style>
-    body {
+    html, body {
       margin: 0;
-      font-family: system-ui, sans-serif;
+      padding: 0;
+      height: 100%;
+      width: 100%;
       background-color: #0d0d0d;
-      color: white;
-      overflow: hidden;
+      font-family: system-ui, sans-serif;
     }
 
     .wrapper {
       display: flex;
-      flex-direction: row;
       height: 100vh;
       width: 100vw;
     }
@@ -33,7 +33,6 @@
     }
 
     .sidebar a {
-      display: block;
       color: #c299ff;
       text-decoration: none;
       margin-bottom: 10px;
@@ -46,9 +45,7 @@
 
     .content {
       flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      height: 100%;
       overflow: hidden;
     }
 
@@ -56,25 +53,20 @@
       width: 100%;
       height: 100%;
       border: none;
+      display: block;
     }
 
+    /* Hide sidebar and stretch iframe on small screens */
     @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+
       .wrapper {
         flex-direction: column;
       }
 
-      .sidebar {
-        width: 100%;
-        height: auto;
-        flex-direction: row;
-        justify-content: space-around;
-      }
-
       .content {
-        flex: 1;
-      }
-
-      iframe {
         width: 100vw;
         height: 100vh;
       }
