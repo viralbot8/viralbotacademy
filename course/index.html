@@ -7,97 +7,111 @@
   <script src="/course/js/check-jwt.js" defer></script>
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    /* ---------- base reset ---------- */
+    *{box-sizing:border-box;margin:0;padding:0;}
+
+    html,body{
+      height:100%;
+      width:100%;
+      font-family:sans-serif;
+      background:#000;
+      color:#fff;
     }
 
-    html, body {
-      height: 100%;
-      width: 100%;
-      font-family: sans-serif;
-      background: #000;
-      color: #fff;
+    /* ---------- layout ---------- */
+    .wrapper{
+      display:flex;
+      height:100%;
+      width:100%;
     }
 
-    .wrapper {
-      display: flex;
-      height: 100%;
-      width: 100%;
+    .sidebar{
+      width:200px;
+      background:#1a1a1a;
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      flex-shrink:0;
     }
 
-    .sidebar {
-      width: 200px;
-      background: #1a1a1a;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      flex-shrink: 0;
+    .sidebar a{
+      color:#c299ff;
+      text-decoration:none;
+      font-weight:bold;
+    }
+    .sidebar a.active{color:#fff;}
+
+    .content{
+      flex:1;
+      height:100%;
+      overflow:hidden;
     }
 
-    .sidebar a {
-      color: #c299ff;
-      text-decoration: none;
-      font-weight: bold;
+    /* ---------- iframe zoom hack ---------- */
+    .iframe-container{
+      width:100%;
+      height:100%;
+      transform-origin:top left;
+      overflow:hidden;
+    }
+    iframe{
+      width:100%;
+      height:100%;
+      border:none;
+      display:block;
     }
 
-    .sidebar a.active {
-      color: #fff;
+    /* ---------- responsive zoom values ---------- */
+    /* phones – no zoom */
+    .iframe-container{transform:scale(1);}
+
+    /* small tablets */
+    @media (min-width:768px){
+      .iframe-container{transform:scale(1.2);}
     }
 
-    .content {
-      flex: 1;
-      height: 100%;
-      overflow: hidden;
+    /* large tablets / small laptop */
+    @media (min-width:992px){
+      .iframe-container{transform:scale(1.35);}
     }
 
-    .iframe-container {
-      width: 100%;
-      height: 100%;
-      transform: scale(1.5); /* Adjust scale as needed */
-      transform-origin: top left;
-      overflow: hidden;
+    /* typical desktop */
+    @media (min-width:1200px){
+      .iframe-container{transform:scale(1.5);}
     }
 
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
+    /* very wide desktop */
+    @media (min-width:1400px){
+      .iframe-container{transform:scale(1.75);}
     }
 
-    @media (max-width: 768px) {
-      .wrapper {
-        flex-direction: column;
+    /* ---------- mobile sidebar layout ---------- */
+    @media (max-width:768px){
+      .wrapper{flex-direction:column;}
+
+      .sidebar{
+        flex-direction:row;
+        width:100%;
+        height:auto;
+        justify-content:center;
+        padding:10px;
       }
+      .sidebar a{margin:0 10px;}
 
-      .sidebar {
-        flex-direction: row;
-        width: 100%;
-        height: auto;
-        justify-content: center;
-        padding: 10px;
-      }
-
-      .sidebar a {
-        margin: 0 10px;
-      }
-
-      .content {
-        height: calc(100vh - 60px);
-      }
+      /* reserve space for the sidebar row */
+      .content{height:calc(100vh - 60px);}
     }
   </style>
 </head>
 <body>
   <div class="wrapper">
     <nav class="sidebar">
-      <a href="/course/index.html" class="active">Lesson 1</a>
-      <a href="/course/lesson-2.html">Lesson 2</a>
-      <a href="/course/lesson-3.html">Lesson 3</a>
+      <a href="/course/index.html" class="active">Lesson&nbsp;1</a>
+      <a href="/course/lesson-2.html">Lesson&nbsp;2</a>
+      <a href="/course/lesson-3.html">Lesson&nbsp;3</a>
     </nav>
+
     <main class="content">
       <div class="iframe-container">
         <iframe src="https://ijwywu282wncaa272883882iushhshs.carrd.co/"></iframe>
