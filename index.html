@@ -1,24 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Viral Bot Academy</title>
-    <script src="/validate.js"></script>
-    <style>
-      html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        overflow: hidden;
+<head>
+  <meta charset="UTF-8">
+  <title>Viral Bot Academy</title>
+  <script>
+    // Decode and validate the JWT token from localStorage
+    function parseJwt(token) {
+      try {
+        return JSON.parse(atob(token.split('.')[1]));
+      } catch (e) {
+        return null;
       }
-      iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
+    }
+
+    const token = localStorage.getItem("access_token");
+    if (!token) {
+      window.location.href = "https://gumroad.com/l/Yj2yVnXuZA-R7b51quDFlg==";
+    } else {
+      const payload = parseJwt(token);
+      const now = Date.now() / 1000;
+      if (!payload || payload.exp < now) {
+        localStorage.removeItem("access_token");
+        window.location.href = "https://gumroad.com/l/Yj2yVnXuZA-R7b51quDFlg==";
       }
-    </style>
-  </head>
-  <body>
-    <iframe src="https://ijwywu282wncaa272883882iushhshs.carrd.co/" allowfullscreen></iframe>
-  </body>
+    }
+  </script>
+</head>
+<body style="margin:0">
+  <iframe 
+    src="https://ijwywu282wncaa272883882iushhshs.carrd.co/" 
+    style="border:0;width:100vw;height:100vh" 
+    allowfullscreen>
+  </iframe>
+</body>
 </html>
