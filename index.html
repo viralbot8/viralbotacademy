@@ -4,26 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lesson 1 – Course</title>
-  <script src="js/check-jwt.js"></script>
+  <script src="/course/js/check-jwt.js" defer></script>
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: sans-serif; }
 
-    .wrapper {
-      display: flex;
-      height: 100vh;
-      overflow: hidden;
-    }
+    .wrapper { display: flex; height: 100vh; overflow: hidden; }
 
-    /* Sidebar */
     .sidebar {
       width: 240px;
       background: #2c3e50;
       color: white;
       padding: 20px;
       flex-shrink: 0;
-      transition: transform 0.3s ease;
     }
 
     .sidebar h2 {
@@ -49,10 +43,23 @@
       background: #1abc9c;
     }
 
-    /* Toggle button (hamburger) */
-    #toggle-sidebar {
-      display: none;
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #f5f5f5;
+      overflow: auto;
     }
+
+    iframe {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Mobile */
+    #toggle-sidebar { display: none; }
 
     .toggle-label {
       display: none;
@@ -71,35 +78,17 @@
       background: #333;
     }
 
-    /* Content */
-    .content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      background: #f5f5f5;
-      overflow: auto;
-    }
-
-    iframe {
-      flex: 1;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    /* Mobile styles */
     @media (max-width: 768px) {
-      .wrapper {
-        flex-direction: row;
-      }
+      .wrapper { flex-direction: column; }
 
       .sidebar {
         position: fixed;
+        height: 100vh;
         top: 0;
         left: 0;
-        height: 100vh;
         transform: translateX(-100%);
-        z-index: 999;
+        z-index: 998;
+        transition: transform 0.3s ease;
       }
 
       #toggle-sidebar:checked ~ .wrapper .sidebar {
@@ -113,28 +102,22 @@
         border-radius: 5px;
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
       }
-
-      iframe {
-        height: calc(100vh - 20px);
-      }
     }
   </style>
 </head>
 <body>
-  <!-- Toggle checkbox for mobile -->
+  <!-- Mobile toggle -->
   <input type="checkbox" id="toggle-sidebar" />
   <label for="toggle-sidebar" class="toggle-label">
-    <span></span>
-    <span></span>
-    <span></span>
+    <span></span><span></span><span></span>
   </label>
 
   <div class="wrapper">
     <nav class="sidebar">
       <h2>📘 My Course</h2>
-      <a href="/course/index.html">Lesson 1</a>
-<a href="/course/lesson-2.html">Lesson 2</a>
-<a href="/course/lesson-3.html">Lesson 3</a>
+      <a href="/course/index.html" class="active">Lesson 1</a>
+      <a href="/course/lesson-2.html">Lesson 2</a>
+      <a href="/course/lesson-3.html">Lesson 3</a>
     </nav>
 
     <main class="content">
