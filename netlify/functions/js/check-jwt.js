@@ -1,50 +1,45 @@
+// /course/js/check-jwt.js
 (async () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const email = urlParams.get("email");
-  let token = localStorage.getItem("jwt");
+  const token = localStorage.getItem("jwt");
 
-  // If email param is present, request a new token
-  if (email) {
-    try {
-      const response = await fetch(`/.netlify/functions/issue-jwt?email=${encodeURIComponent(email)}`);
-      const data = await response.json();
+  // Try to issue a new token if we have an email in the URL
+  const params = new URLSearchParams(window.location.search);
+  const email = params.get("email");
 
-      if (data.token) {
-        localStorage.setItem("jwt", data.token);
+  if (!token && email) {
+    try {
+      const res = await fetch(`/.netlify/functions/issue-jwt?email=${email}`);
+      const data = await res.json();
 
-        // Clean up URL (remove ?email=...)
-        const cleanUrl = window.location.origin + window.location.pathname;
-        window.history.replaceState({}, document.title, cleanUrl);
-        return; // skip verification this round
-      } else {
-        window.location.href = "/unauthorized.html";
-      }
-    } catch (err) {
-      window.location.href = "/unauthorized.html";
-    }
-  }
+      if (data.token) {
+        localStorage.setItem("jwt", data.token);
 
-  // If no token at all, or token is invalid, block access
-  if (!token) {
-    window.location.href = "/unauthorized.html";
-    return;
-  }
+        // Remove ?email= from URL without reloading
+        const cleanUrl = window.location.origin + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+      }
+    } catch (err) {
+      console.error("Token issue failed", err);
+    }
+  }
 
-  try {
-    const res = await fetch("/.netlify/functions/verify-jwt", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token }),
-    });
+  // Verify the JWT via Netlify
+  const finalToken = localStorage.getItem("jwt");
+  if (finalToken) {
+    try {
+      const verify = await fetch("/.netlify/functions/verify-jwt", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: finalToken }),
+      });
 
-    const result = await res.json();
-    if (!result.valid) {
-      localStorage.removeItem("jwt");
-      window.location.href = "/unauthorized.html";
-    }
-  } catch (err) {
-    console.error("JWT verify failed", err);
-    localStorage.removeItem("jwt");
-    window.location.href = "/unauthorized.html";
-  }
+      const result = await verify.json();
+      if (!result.valid) throw new Error("Invalid");
+    } catch (err) {
+      localStorage.removeItem("jwt");
+      window.location.href = "/unauthorized.html";
+    }
+  } else {
+    window.location.href = "/unauthorized.html";
+  }
 })();
