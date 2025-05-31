@@ -78,7 +78,7 @@
     .sidebar {
       width: 200px;
       background: rgba(26, 26, 26, 0.8);
-      padding: 60px 20px 20px 20px; /* Increased top padding */
+      padding: 60px 20px 20px 20px;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -95,20 +95,17 @@
     }
 
     .sidebar a.active {
-      color: #fff;
+      color: #c299ff;
     }
 
     .content {
       flex: 1;
       height: 100%;
-      position: relative;
       overflow: hidden;
+      padding-top: 40px; /* Push content below top buttons */
     }
 
     iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
       width: 100%;
       height: 100%;
       border: none;
@@ -141,20 +138,25 @@
 
       .content {
         height: 100vh;
+        padding-top: 40px;
+      }
+
+      iframe {
+        height: 100%;
       }
     }
   </style>
 </head>
 <body>
   <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-  <a class="support-button" href="mailto:viralbot8@gmail.com">CLICK TO CONTACT SUPPORT</a>
+  <a class="support-button" href="mailto:viralbot8@gmail.com">📨 CLICK TO CONTACT SUPPORT</a>
   <button class="logout-button" onclick="logout()">Logout</button>
 
   <div class="wrapper">
     <nav class="sidebar" id="sidebar">
-      <a href="/course/index.html" class="active">HOW TO SCALE</a>
-      <a href="/course/lesson-2.html">WEEKLY UPDATES</a>
-      <a href="/course/lesson-3.html">AI CHATBOT</a>
+      <a href="/course/index.html">📈 HOW TO SCALE</a>
+      <a href="/course/lesson-2.html">📢 WEEKLY UPDATES</a>
+      <a href="/course/lesson-3.html">🤖 AI CHATBOT</a>
     </nav>
     <main class="content">
       <iframe src="https://iqbveii29282vv367s8sbwuk1oiwow9r.carrd.co/"></iframe>
