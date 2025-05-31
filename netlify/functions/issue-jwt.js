@@ -1,43 +1,26 @@
-/*  netlify/functions/issue-jwt.js  */
 const jwt = require("jsonwebtoken");
 
 exports.handler = async (event) => {
-  const secret = process.env.JWT_SECRET;
-   // make sure you set JWT_SECRET in Netlify
-  const email  = event.queryStringParameters.email;
+  const { email } = event.queryStringParameters;
 
-  if (!email) {
-    return { statusCode: 400, body: "Missing email" };
-  }
+  console.log("Email received:", email);
+  console.log("Env secret:", process.env.JWT_SECRET);
 
-  const token = jwt.sign({ email }, secret, { expiresIn: "30d" });
-
-  /* ---------- 1️⃣  If the caller wants JSON (fetch from check-jwt.js) ---------- */
-  const wantJson =
-    (event.headers.accept || "").includes("application/json") ||
-    event.headers["content-type"] === "application/json";
-
-  if (wantJson) {
+  if (!email || !process.env.JWT_SECRET) {
     return {
-      statusCode: 200,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token }),
+      statusCode: 401,
+      body: JSON.stringify({ error: "Missing email or secret." }),
     };
   }
 
-  /* ---------- 2️⃣  Fallback: direct browser hit (rare) ---------- */
+  const token = jwt.sign(
+    { email },
+    process.env.JWT_SECRET,
+    { expiresIn: "1h" }
+  );
+
   return {
     statusCode: 200,
-    headers: { "Content-Type": "text/html" },
-    body: `
-      <html><body style="font-family:sans-serif;text-align:center;padding:2rem">
-        <h2>✅ Token issued</h2>
-        <script>
-          localStorage.setItem("jwt","${token}");
-          location.href = "/course/index.html";
-        </script>
-        Redirecting…
-      </body></html>
-    `,
+    body: JSON.stringify({ token }),
   };
 };
