@@ -1,19 +1,21 @@
-(function () {
-  const token = localStorage.getItem('course_jwt');
+(async () => {
+  const token = localStorage.getItem("token");
   if (!token) {
-    window.location.href = "/unauthorized.html"; // redirect if not found
+    window.location.href = "/unauthorized.html";
     return;
   }
 
   try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    const now = Math.floor(Date.now() / 1000);
-    if (payload.exp && payload.exp < now) {
-      localStorage.removeItem('course_jwt');
-      window.location.href = "/unauthorized.html"; // redirect if expired
-    }
+    const res = await fetch("/.netlify/functions/verify-jwt", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token }),
+    });
+
+    const data = await res.json();
+    if (!data.valid) throw new Error("Invalid token");
   } catch (err) {
-    localStorage.removeItem('course_jwt');
-    window.location.href = "/unauthorized.html"; // redirect if invalid
+    localStorage.removeItem("token");
+    window.location.href = "/unauthorized.html";
   }
 })();
