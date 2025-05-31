@@ -1,43 +1,43 @@
 // /course/js/check-jwt.js
 (async () => {
-  const token = localStorage.getItem("jwt");
+  const STORAGE_KEY = "jwt";
+  const url      = new URL(location.href);
+  const email    = url.searchParams.get("email");
+  let   token    = localStorage.getItem(STORAGE_KEY);
 
-  const params = new URLSearchParams(window.location.search);
-  const email = params.get("email");
+  /* 1️⃣ No token yet but email param present → fetch a new one */
+  if (!token && email) {
+    try {
+      const r   = await fetch(`/.netlify/functions/issue-jwt?email=${encodeURIComponent(email)}`);
+      const out = await r.json();
+      if (out.token) {
+        token = out.token;
+        localStorage.setItem(STORAGE_KEY, token);
+        history.replaceState({}, "", url.pathname);           // clean ?email=
+      }
+    } catch (err) {
+      console.error("issue-jwt failed:", err);
+    }
+  }
 
-  if (!token && email) {
-    try {
-      const res = await fetch(`/.netlify/functions/issue-jwt?email=${email}`);
-      const data = await res.json();
+  /* 2️⃣ If still no token → bounce */
+  if (!token) {
+    location.href = "/unauthorized.html";
+    return;
+  }
 
-      if (data.token) {
-        localStorage.setItem("jwt", data.token);
-
-        const cleanUrl = window.location.origin + window.location.pathname;
-        window.history.replaceState({}, document.title, cleanUrl);
-      }
-    } catch (err) {
-      console.error("Token issue failed", err);
-    }
-  }
-
-  const finalToken = localStorage.getItem("jwt");
-  if (finalToken) {
-    try {
-      const verify = await fetch("/.netlify/functions/verify-jwt", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${finalToken}`,
-        },
-      });
-
-      const result = await verify.json();
-      if (!result.valid) throw new Error("Invalid");
-    } catch (err) {
-      localStorage.removeItem("jwt");
-      window.location.href = "/unauthorized.html";
-    }
-  } else {
-    window.location.href = "/unauthorized.html";
-  }
+  /* 3️⃣ Verify token with backend */
+  try {
+    const r   = await fetch("/.netlify/functions/verify-jwt", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token })
+    });
+    const out = await r.json();
+    if (!out.valid) throw new Error(out.error);
+  } catch (err) {
+    console.warn("Token invalid:", err.message);
+    localStorage.removeItem(STORAGE_KEY);
+    location.href = "/unauthorized.html";
+  }
 })();
