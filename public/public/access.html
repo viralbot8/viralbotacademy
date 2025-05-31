@@ -1,8 +1,0 @@
-<script>
-  const key = new URLSearchParams(location.search).get('license_key');
-  fetch('/.netlify/functions/verify', {
-    method: 'POST',
-    body: JSON.stringify({ license_key: key })
-  });
-</script>
-<p>Verifying your purchase…</p>
