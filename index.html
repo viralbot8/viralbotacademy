@@ -1,36 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Viral Bot Academy</title>
-  <script>
-    // Decode and validate the JWT token from localStorage
-    function parseJwt(token) {
-      try {
-        return JSON.parse(atob(token.split('.')[1]));
-      } catch (e) {
-        return null;
-      }
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lesson 1 – Course</title>
 
-    const token = localStorage.getItem("access_token");
-    if (!token) {
-      window.location.href = "https://gumroad.com/l/Yj2yVnXuZA-R7b51quDFlg==";
-    } else {
-      const payload = parseJwt(token);
-      const now = Date.now() / 1000;
-      if (!payload || payload.exp < now) {
-        localStorage.removeItem("access_token");
-        window.location.href = "https://gumroad.com/l/Yj2yVnXuZA-R7b51quDFlg==";
-      }
-    }
-  </script>
+  <!-- JWT protection -->
+  <script src="/course/js/check-jwt.js"></script>
+
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{display:flex;height:100vh;font-family:sans-serif;overflow:hidden}
+    /* sidebar */
+    .sidebar{width:240px;background:#2c3e50;color:#fff;display:flex;flex-direction:column;padding:20px}
+    .sidebar h2{margin-bottom:20px;font-size:20px}
+    .sidebar a{display:block;margin:8px 0;padding:6px;border-radius:4px;font-weight:700;text-decoration:none;color:#fff}
+    .sidebar a:hover{background:#34495e}
+    .sidebar a.active{background:#1abc9c}
+    /* content */
+    .content{flex:1;background:#f5f5f5}
+    iframe{width:100%;height:100%;border:none}
+  </style>
 </head>
-<body style="margin:0">
-  <iframe 
-    src="https://ijwywu282wncaa272883882iushhshs.carrd.co/" 
-    style="border:0;width:100vw;height:100vh" 
-    allowfullscreen>
-  </iframe>
+<body>
+  <nav class="sidebar">
+    <h2>📘 My Course</h2>
+    <a href="/course/index.html"  class="active">Lesson 1</a>
+    <a href="/course/lesson-2.html">Lesson 2</a>
+    <a href="/course/lesson-3.html">Lesson 3</a>
+  </nav>
+
+  <main class="content">
+    <iframe src="https://wu8w88wiuwhabbanjso2981iw.carrd.co/"></iframe>
+  </main>
 </body>
 </html>
