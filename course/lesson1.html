@@ -1,38 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lesson 1 – Course</title>
   <script src="/course/js/check-jwt.js" defer></script>
-
   <style>
-    /* Add your existing CSS here — unchanged */
-    iframe {
-      width: 100%;
-      height: 100vh;
-      border: none;
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #000;
+      color: #fff;
     }
+
     .wrapper {
       display: flex;
+      min-height: 100vh;
     }
+
     .sidebar {
-      width: 200px;
-      background: #f2f2f2;
+      background: #111;
       padding: 1rem;
+      width: 220px;
+      min-height: 100vh;
+      box-sizing: border-box;
     }
+
+    .sidebar h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 0.5rem 0;
+      color: #c9c7ff;
+      text-decoration: none;
+    }
+
+    .sidebar a.active {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
     .content {
-      flex-grow: 1;
+      flex: 1;
       padding: 1rem;
     }
-    .toggle-label {
+
+    iframe {
+      width: 100%;
+      height: 80vh;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    /* Mobile styles */
+    #toggle-sidebar {
       display: none;
+    }
+
+    .toggle-label {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      z-index: 999;
+    }
+
+    .toggle-label span {
+      width: 25px;
+      height: 3px;
+      margin: 4px 0;
+      background: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        display: none;
+        width: 100%;
+        height: auto;
+      }
+
+      #toggle-sidebar:checked ~ .wrapper .sidebar {
+        display: block;
+      }
+
+      .toggle-label {
+        display: flex;
+      }
     }
   </style>
 </head>
 <body>
-  <input type="checkbox" id="toggle-sidebar">
-  <label for="toggle-sidebar" class="toggle-label"><span></span><span></span><span></span></label>
+  <input type="checkbox" id="toggle-sidebar" />
+  <label for="toggle-sidebar" class="toggle-label">
+    <span></span><span></span><span></span>
+  </label>
 
   <div class="wrapper">
     <nav class="sidebar">
@@ -43,7 +114,6 @@
     </nav>
 
     <main class="content">
-      <!-- Carrd embed -->
       <iframe src="https://ijwywu282wncaa272883882iushhshs.carrd.co/" loading="lazy"></iframe>
     </main>
   </div>
