@@ -1,8 +1,9 @@
 {
-  "name": "viralbotacademy",
-  "version": "1.0.0",
-  "main": "index.js",
-  "dependencies": {
-    "jsonwebtoken": "^9.0.0"
-  }
+  "name": "jwt-course-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "jsonwebtoken": "^9.0.0"
+  }
 }
