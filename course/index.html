@@ -24,6 +24,11 @@
       flex-shrink: 0;
     }
 
+    .sidebar h2 {
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
     .sidebar a {
       display: block;
       margin: 8px 0;
@@ -86,7 +91,6 @@
         height: 100vh;
         transform: translateX(-100%);
         z-index: 999;
-        transition: transform 0.3s ease;
       }
 
       #toggle-sidebar:checked ~ .wrapper .sidebar {
@@ -115,7 +119,7 @@
 
   <div class="wrapper">
     <nav class="sidebar">
-      <!-- Removed <h2>📘 My Course</h2> -->
+      <h2>📘 My Course</h2>
       <a href="/course/index.html" class="active">Lesson 1</a>
       <a href="/course/lesson-2.html">Lesson 2</a>
       <a href="/course/lesson-3.html">Lesson 3</a>
