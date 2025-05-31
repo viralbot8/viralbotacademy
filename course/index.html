@@ -2,10 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lesson 1 – Course</title>
-  <script src="/course/js/check-jwt.js" defer></script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Viral Bot Academy</title>
   <style>
     * {
       box-sizing: border-box;
@@ -15,7 +13,6 @@
 
     html, body {
       height: 100%;
-      width: 100%;
       font-family: sans-serif;
       background: #000;
       color: #fff;
@@ -23,19 +20,35 @@
 
     .wrapper {
       display: flex;
-      height: 100%;
-      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      background: #1a1a1a;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      font-size: 24px;
+      cursor: pointer;
+      border-radius: 4px;
     }
 
     .sidebar {
-      width: 200px;
-      background: #1a1a1a;
+      width: 220px;
+      background: #111;
       padding: 20px;
+      flex-shrink: 0;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      flex-shrink: 0;
+      gap: 15px;
       transition: transform 0.3s ease;
+      z-index: 1000;
     }
 
     .sidebar a {
@@ -45,41 +58,26 @@
     }
 
     .sidebar a.active {
-      color: #fff;
+      color: #ffffff;
     }
 
     .content {
       flex: 1;
-      height: 100%;
-      overflow: hidden;
       position: relative;
     }
 
-    .iframe-container {
-      width: 100%;
-      height: 100%;
-      transform-origin: top left;
-      overflow: hidden;
-    }
-
     iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       border: none;
-      display: block;
     }
 
-    /* Responsive scaling */
-    .iframe-container { transform: scale(1); }
-    @media (min-width: 768px) { .iframe-container { transform: scale(1.2); } }
-    @media (min-width: 992px) { .iframe-container { transform: scale(1.35); } }
-    @media (min-width: 1200px) { .iframe-container { transform: scale(1.5); } }
-    @media (min-width: 1400px) { .iframe-container { transform: scale(1.75); } }
-
-    /* Mobile-specific sidebar handling */
     @media (max-width: 768px) {
-      .wrapper {
-        flex-direction: column;
+      .menu-toggle {
+        display: block;
       }
 
       .sidebar {
@@ -87,49 +85,33 @@
         top: 0;
         left: 0;
         height: 100%;
-        width: 200px;
         transform: translateX(-100%);
-        z-index: 1000;
+        width: 250px;
+        padding-top: 60px;
+        background-color: #111;
       }
 
       .sidebar.open {
         transform: translateX(0);
       }
 
-      .menu-toggle {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        background: #1a1a1a;
-        color: #fff;
-        border: none;
-        padding: 10px 15px;
-        font-size: 16px;
-        cursor: pointer;
-        z-index: 1100;
-      }
-
       .content {
+        flex: 1;
         height: 100vh;
       }
     }
   </style>
 </head>
 <body>
+  <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
   <div class="wrapper">
-    <!-- Mobile Menu Button -->
-    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-
     <nav class="sidebar" id="sidebar">
       <a href="/course/index.html" class="active">Lesson 1</a>
       <a href="/course/lesson-2.html">Lesson 2</a>
       <a href="/course/lesson-3.html">Lesson 3</a>
     </nav>
-
     <main class="content">
-      <div class="iframe-container">
-        <iframe src="https://ijwywu282wncaa272883882iushhshs.carrd.co/"></iframe>
-      </div>
+      <iframe src="https://ijwywu282wncaa272883882iushhshs.carrd.co/"></iframe>
     </main>
   </div>
 
